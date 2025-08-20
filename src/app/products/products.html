@@ -1,0 +1,21 @@
+<div class="products-container">
+  
+  
+  @if (loading) {
+    <div class="loading-spinner"></div>
+    <div class="loading">Loading products...</div>
+  }
+
+  <div class="products-grid">
+    @for (product of products; track product.id) {
+      <div class="product-card">
+        <img [src]="product.image" [alt]="product.title">
+        <div class="product-info">
+          <h3>{{ product.title }}</h3>
+          <p class="price">${{ product.price }}</p>
+          <button class="view-btn" (click)="viewProduct(product.id)">View Details</button>
+        </div>
+      </div>
+    }
+  </div>
+</div>

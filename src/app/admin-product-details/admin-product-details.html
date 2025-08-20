@@ -1,0 +1,107 @@
+<div class="admin-product-details-container">
+  <div class="admin-header">
+    <h2>📋 Product Details - Admin View</h2>
+    <div class="admin-actions">
+      <button class="btn-secondary" (click)="goToDashboard()">
+        ← Dashboard
+      </button>
+      <button class="btn-secondary" (click)="goBack()">
+        ← Back to Products
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="loading">
+    <div class="loading-spinner"></div>
+    <p>Loading product details...</p>
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+
+  <div *ngIf="product && !loading && !error">
+    <div class="product-details-content">
+      <div class="product-image-section">
+        <img [src]="product.image" [alt]="product.title" class="product-image-large">
+      </div>
+
+      <div class="product-info-section">
+        <h1>{{ product.title }}</h1>
+        
+        <div class="price-section">
+          <span class="price-label">Price:</span>
+          <span class="price-value">${{ product.price }}</span>
+        </div>
+
+        <div class="category-section">
+          <span class="category-label">Category:</span>
+          <span class="category-value">{{ product.category }}</span>
+        </div>
+
+        <div class="rating-section">
+          <span class="rating-label">Rating:</span>
+          <span class="rating-value">⭐ {{ product.rating.rate }} ({{ product.rating.count }} reviews)</span>
+        </div>
+
+        <div class="description-section">
+          <h3>Description</h3>
+          <p class="description">{{ product.description }}</p>
+        </div>
+
+        <div class="product-id-section">
+          <span class="id-label">Product ID:</span>
+          <span class="id-value">{{ product.id }}</span>
+        </div>
+
+        <div class="additional-info">
+          <h3>Additional Information</h3>
+          <div class="info-grid">
+            <div class="info-item">
+              <span class="info-label">Created:</span>
+              <span class="info-value">Jan 15, 2023</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Last Updated:</span>
+              <span class="info-value">Mar 22, 2023</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Status:</span>
+              <span class="info-value">Active</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">In Stock:</span>
+              <span class="info-value">Yes</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="admin-actions-buttons">
+          <button class="btn-edit" (click)="editProduct()">
+            ✏️ Edit Product
+          </button>
+          <button class="btn-delete" (click)="confirmDelete()">
+            🗑️ Delete Product
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!product && !loading && !error" class="no-product">
+    <p>No product data available</p>
+  </div>
+
+  <!-- Delete Confirmation Modal -->
+  <div class="delete-modal" *ngIf="showDeleteModal">
+    <div class="delete-modal-content">
+      <div class="delete-icon">⚠️</div>
+      <h3>Confirm Deletion</h3>
+      <p>Are you sure you want to delete "{{ product?.title }}"? This action cannot be undone.</p>
+      <div class="delete-actions">
+        <button class="btn-cancel" (click)="cancelDelete()">Cancel</button>
+        <button class="btn-confirm-delete" (click)="deleteProduct()">Delete Product</button>
+      </div>
+    </div>
+  </div>
+</div>

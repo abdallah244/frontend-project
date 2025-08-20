@@ -1,0 +1,45 @@
+<div class="login-wrapper">
+  <div class="login-box">
+    <h2>Welcome Back 👋</h2>
+    <p>Please login to your account</p>
+
+    <form #loginForm="ngForm" (ngSubmit)="onLogin(loginForm)">
+      
+      <div class="input-group">
+        <span class="material-icons">email</span>
+        <input type="email" name="email" placeholder="Email address"
+               [(ngModel)]="email" #emailField="ngModel" required email />
+      </div>
+
+    
+      <div class="input-group">
+        <span class="material-icons">lock</span>
+        <input type="password" name="password" placeholder="Password"
+               [(ngModel)]="password" #passField="ngModel" required minlength="6" />
+      </div>
+
+      
+      <div class="error" *ngIf="loginError">
+        <small>Invalid email or password</small>
+      </div>
+
+    
+      <button type="submit" [disabled]="loginForm.invalid">Login</button>
+    </form>
+
+   
+    <a href="#" class="show-credentials-link" (click)="openModal(); $event.preventDefault()">Show Credentials</a>
+  </div>
+
+
+  <div class="modal-backdrop" *ngIf="showModal" (click)="closeModal()">
+    <div class="modal-box" (click)="$event.stopPropagation()">
+      <span class="close-icon" (click)="closeModal()">✖</span>
+      <h3>Available Logins</h3>
+      <p><strong>Admin Email:</strong> admin@example.com</p>
+      <p><strong>Admin Password:</strong> admin123</p>
+      <p><strong>User Email:</strong> user@example.com</p>
+      <p><strong>User Password:</strong> user123</p>
+    </div>
+  </div>
+</div>
