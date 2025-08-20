@@ -1,0 +1,64 @@
+<div class="admin-container">
+  <div class="admin-header">
+    <h2>📦 Product Management</h2>
+    <div class="admin-actions">
+      <button class="btn-primary" (click)="goToDashboard()">
+        ← Dashboard
+      </button>
+      <button class="btn-success" (click)="addNewProduct()">
+        + Add New Product
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="loading">
+    <div class="loading-spinner"></div>
+    <p>Loading products...</p>
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+
+  <div *ngIf="!loading && !error" class="products-table-container">
+    <table class="products-table">
+      <thead>
+        <tr>
+          <th>Image</th>
+          <th>Name</th>
+          <th>Category</th>
+          <th>Price</th>
+          <th>Rating</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of products" class="product-row">
+          <td>
+            <img [src]="product.image" [alt]="product.title" class="product-image">
+          </td>
+          <td class="product-title">{{ product.title }}</td>
+          <td class="product-category">{{ product.category }}</td>
+          <td class="product-price">${{ product.price }}</td>
+          <td class="product-rating">
+            ⭐ {{ product.rating.rate }} ({{ product.rating.count }})
+          </td>
+          <td class="product-actions">
+            <!-- View -->
+            <button class="btn-view" (click)="viewProduct(product.id)">
+              👁️ View
+            </button>
+            <!--Edit -->
+            <button class="btn-edit" (click)="editProduct(product.id)">
+              ✏️ Edit
+            </button>
+            <!--  Delete -->
+            <button class="btn-delete" (click)="deleteProduct(product.id)">
+              🗑️ Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,118 @@
+<div class="admin-container">
+  <div class="admin-header">
+    <h2>✏️ Edit Product</h2>
+    <button class="btn-secondary" (click)="cancel()">
+      ← Back to Products
+    </button>
+  </div>
+
+  <div *ngIf="loading" class="loading">
+    <div class="loading-spinner"></div>
+    <p>Loading product details...</p>
+  </div>
+
+  <form *ngIf="!loading" #productForm="ngForm" (ngSubmit)="onSubmit()" class="product-form">
+    <div *ngIf="error" class="error-message">
+      {{ error }}
+    </div>
+
+    <div class="form-group">
+      <label for="title">Product Title *</label>
+      <input 
+        type="text" 
+        id="title" 
+        [(ngModel)]="product.title" 
+        name="title" 
+        required 
+        placeholder="Enter product title">
+    </div>
+
+    <div class="form-group">
+      <label for="price">Price ($) *</label>
+      <input 
+        type="number" 
+        id="price" 
+        [(ngModel)]="product.price" 
+        name="price" 
+        required 
+        step="0.01" 
+        min="0"
+        placeholder="0.00">
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description *</label>
+      <textarea 
+        id="description" 
+        [(ngModel)]="product.description" 
+        name="description" 
+        required 
+        rows="5"
+        placeholder="Enter detailed product description..."></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="category">Category *</label>
+      <input 
+        type="text" 
+        id="category" 
+        [(ngModel)]="product.category" 
+        name="category" 
+        required 
+        placeholder="e.g., clothing, electronics">
+    </div>
+
+    <div class="form-group">
+      <label for="image">Image URL *</label>
+      <input 
+        type="url" 
+        id="image" 
+        [(ngModel)]="product.image" 
+        name="image" 
+        required 
+        placeholder="https://example.com/image.jpg">
+      
+      <div class="image-preview" *ngIf="product.image">
+        <img [src]="product.image" alt="Preview" onerror="this.style.display='none'">
+      </div>
+    </div>
+
+    <div class="form-group rating-group">
+      <div>
+        <label for="rating">Rating (0-5)</label>
+        <input 
+          type="number" 
+          id="rating" 
+          [(ngModel)]="product.rating.rate" 
+          name="rating" 
+          step="0.1" 
+          min="0" 
+          max="5"
+          placeholder="4.5">
+      </div>
+      
+      <div>
+        <label for="count">Review Count</label>
+        <input 
+          type="number" 
+          id="count" 
+          [(ngModel)]="product.rating.count" 
+          name="count" 
+          min="0"
+          placeholder="120">
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="button" class="btn-secondary" (click)="cancel()">
+        Cancel
+      </button>
+      <button 
+        type="submit" 
+        class="btn-primary" 
+        [disabled]="productForm.invalid || saving">
+        {{ saving ? 'Saving Changes...' : 'Update Product' }}
+      </button>
+    </div>
+  </form>
+</div>

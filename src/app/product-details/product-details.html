@@ -1,0 +1,96 @@
+<div class="product-details-container">
+  <div *ngIf="loading" class="loading">
+    <div class="loading-spinner"></div>
+    Loading product details...
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+
+  <div *ngIf="product && !loading && !error" class="product-details">
+    <div class="product-image">
+      <img [src]="product.image" [alt]="product.title">
+    </div>
+
+    <div class="product-info">
+      <h1>{{ product.title }}</h1>
+      <div class="price">${{ product.price }}</div>
+      
+      <div class="category">
+        <span class="category-label">Category:</span>
+        <span class="category-value">{{ product.category }}</span>
+      </div>
+      
+      <div class="rating">
+        ⭐ {{ product.rating.rate }} ({{ product.rating.count }} reviews)
+      </div>
+
+      <!-- خيارات اللون والمقاس -->
+      <div class="product-options" *ngIf="showOptions">
+        <div class="option-group">
+          <label>Color:</label>
+          <div class="color-options">
+            <div 
+              *ngFor="let color of availableColors" 
+              class="color-option" 
+              [class.selected]="selectedColor === color"
+              [style.background]="color"
+              (click)="selectColor(color)"
+            ></div>
+          </div>
+        </div>
+
+        <div class="option-group">
+          <label>Size:</label>
+          <div class="size-options">
+            <div 
+              *ngFor="let size of availableSizes" 
+              class="size-option" 
+              [class.selected]="selectedSize === size"
+              (click)="selectSize(size)"
+            >
+              {{ size }}
+            </div>
+          </div>
+        </div>
+
+        <div class="quantity-selector">
+          <label>Quantity:</label>
+          <div class="quantity-controls">
+            <button (click)="decreaseQuantity()">-</button>
+            <span>{{ quantity }}</span>
+            <button (click)="increaseQuantity()">+</button>
+          </div>
+        </div>
+      </div>
+
+      <p class="description">{{ product.description }}</p>
+
+      <div class="product-actions">
+        <button class="add-to-cart" (click)="addToCart()">
+          🛒 Add to Cart
+        </button>
+        <button class="back-btn" (click)="goBack()">← Back to Products</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Success Modal -->
+  <div class="modal-backdrop" *ngIf="showSuccessModal">
+    <div class="modal-box success-modal">
+      <span class="close-icon" (click)="closeSuccessModal()">✖</span>
+      <div class="success-icon">✅</div>
+      <h3>Added to Cart!</h3>
+      <p>Product successfully added to your shopping cart.</p>
+      <div class="modal-actions">
+        <button class="continue-shopping" (click)="closeSuccessModal()">
+          Continue Shopping
+        </button>
+        <button class="view-cart" (click)="goToCart()">
+          View Cart
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

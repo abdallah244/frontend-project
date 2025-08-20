@@ -1,0 +1,57 @@
+:host {
+  display: block;
+  animation: slideUpFade 0.8s ease forwards;
+}
+
+@keyframes slideUpFade {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.home-container {
+  text-align: center;
+  padding: 50px 20px;
+  color: white;
+}
+
+.home-container h1 {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
+
+.home-container p {
+  font-size: 1.2rem;
+  margin-bottom: 25px;
+}
+
+.home-container button {
+  background: linear-gradient(135deg, #ffcc70, #ffb347, #ff7e5f);
+  border: none;
+  padding: 14px 28px;
+  margin-bottom: 18vh;
+  font-size: 1.1rem;
+  border-radius: 30px;
+  cursor: pointer;
+  color: #000;
+  font-weight: bold;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: pulse 1.5s infinite;
+}
+
+.home-container button:hover {
+  transform: scale(1.08);
+  box-shadow: 0 5px 20px rgba(255, 204, 112, 0.6);
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
